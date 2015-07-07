@@ -49,12 +49,13 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.zipCheckBox = new System.Windows.Forms.CheckBox();
             this.registryCheckBox = new System.Windows.Forms.CheckBox();
             this.ticketLabel = new System.Windows.Forms.Label();
             this.ticketTextBox = new System.Windows.Forms.TextBox();
             this.pbSnipping = new System.Windows.Forms.ProgressBar();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -208,6 +209,7 @@
             // 
             this.quickSelectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCurrentToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.toolStripSeparator1});
             this.quickSelectToolStripMenuItem.Name = "quickSelectToolStripMenuItem";
             this.quickSelectToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
@@ -219,6 +221,11 @@
             this.addCurrentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addCurrentToolStripMenuItem.Text = "Add Current";
             this.addCurrentToolStripMenuItem.Click += new System.EventHandler(this.addCurrentToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // zipCheckBox
             // 
@@ -265,10 +272,12 @@
             this.pbSnipping.TabIndex = 13;
             this.pbSnipping.Visible = false;
             // 
-            // toolStripSeparator1
+            // editToolStripMenuItem
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -335,6 +344,7 @@
         private System.Windows.Forms.ProgressBar pbSnipping;
         private System.Windows.Forms.ToolStripMenuItem addCurrentToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
 
 
     }

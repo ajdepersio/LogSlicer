@@ -1,6 +1,6 @@
 ﻿namespace LogSlicer.UI
 {
-    partial class MessageTextBox
+    partial class LogSetTextBox
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageTextBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogSetTextBox));
             this.inputLabel = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnEnter = new System.Windows.Forms.Button();

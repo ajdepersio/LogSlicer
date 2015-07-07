@@ -364,9 +364,7 @@ namespace LogSlicer
         {
             if (logListBox.CheckedItems.Cast<string>().ToList().Count != 0)
             {
-                //MessageBox.Show("This doesn't do anything yet... Or does it?");
-                //Config.Save("Stuff", "Gary was here, Ash is a loser!", true, false);
-                MessageTextBox popup = new MessageTextBox(this);
+                LogSetTextBox popup = new LogSetTextBox(this);
                 popup.Text = "Enter Name For Log Set";
                 popup.inputLabel.Text = "Name";
                 popup.ShowDialog();
@@ -376,6 +374,11 @@ namespace LogSlicer
             {
                 MessageBox.Show("You need to select some logs before trying to save the selection.");
             }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

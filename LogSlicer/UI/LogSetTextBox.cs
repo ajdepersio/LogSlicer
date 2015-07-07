@@ -9,11 +9,11 @@ using System.Windows.Forms;
 
 namespace LogSlicer.UI
 {
-    public partial class MessageTextBox : Form
+    public partial class LogSetTextBox : Form
     {
         private Main _mainForm;
 
-        public MessageTextBox(Main mainForm)
+        public LogSetTextBox(Main mainForm)
         {
             InitializeComponent();
             this._mainForm = mainForm;
@@ -36,6 +36,7 @@ namespace LogSlicer.UI
         /// <param name="e"></param>
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            //TODO Figure out a better way to do this so we don't have to pass _mainForm to this class
             QuickSelect qs = new QuickSelect(txtName.Text, _mainForm.logListBox.CheckedItems.Cast<string>().ToList());
             qs.WriteToConfig();
             _mainForm.AddQuickSelect(qs);
