@@ -25,6 +25,11 @@ namespace LogSlicer
             Application.Run(new Main());
         }
 
+        /// <summary>
+        /// Cleanup files on exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void OnProcessExit(object sender, EventArgs e)
         {
             string directory = Slicer.OutputFolder + "\\temp\\";

@@ -19,11 +19,21 @@ namespace LogSlicer.UI
             this._mainForm = mainForm;
         }
 
+        /// <summary>
+        /// Close the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Create new QuickSelect item and add it to the menu 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEnter_Click(object sender, EventArgs e)
         {
             QuickSelect qs = new QuickSelect(txtName.Text, _mainForm.logListBox.CheckedItems.Cast<string>().ToList());

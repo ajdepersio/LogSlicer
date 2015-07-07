@@ -83,7 +83,6 @@ C:\Users\Andrew.DePersio\Dropbox\C Sharp\Personal Projects\LogSlicer\LogSlicer\o
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\bin\x86\Debug\LogSlicer.exe.config
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.exe
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.pdb
-C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.FTPTest.resources
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.FTPLogin.resources
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.Main.resources
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.Properties.Resources.resources
@@ -102,3 +101,4 @@ C:\Users\Kajayacht\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSli
 C:\Users\Kajayacht\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.Properties.Resources.resources
 C:\Users\Kajayacht\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.csproj.GenerateResource.Cache
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.UI.MessageTextBox.resources
+C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.csprojResolveAssemblyReference.cache

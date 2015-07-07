@@ -333,10 +333,6 @@
         private System.Windows.Forms.Label ticketLabel;
         private System.Windows.Forms.TextBox ticketTextBox;
         private System.Windows.Forms.ProgressBar pbSnipping;
-#if DEBUG
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fTPToolStripMenuItem;
-#endif
         private System.Windows.Forms.ToolStripMenuItem addCurrentToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 

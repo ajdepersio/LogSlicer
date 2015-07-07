@@ -99,12 +99,6 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="EmbeddedAssembly.cs" />
-    <Compile Include="DebugTests\FTPTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DebugTests\FTPTest.Designer.cs">
-      <DependentUpon>FTPTest.cs</DependentUpon>
-    </Compile>
     <Compile Include="Encryption.cs" />
     <Compile Include="LogJournal.cs" />
     <Compile Include="QuickSelect.cs" />
@@ -132,9 +126,6 @@
     <Compile Include="UI\MessageTextBox.Designer.cs">
       <DependentUpon>MessageTextBox.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DebugTests\FTPTest.resx">
-      <DependentUpon>FTPTest.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\FTPLogin.resx">
       <DependentUpon>FTPLogin.cs</DependentUpon>
     </EmbeddedResource>

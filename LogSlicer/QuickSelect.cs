@@ -5,21 +5,18 @@ using System.Text;
 
 namespace LogSlicer
 {
-    //* Functions to do any sort of Loading of settings or defaults.  
+    //* Predefined Log set for commonly used snips 
     public class QuickSelect
     {
         private string _name;
         private List<string> _types;
         private static List<QuickSelect> _quickSelects = new List<QuickSelect>();
         
-
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
-        
-
 
         public List<string> Types
         {
@@ -47,9 +44,15 @@ namespace LogSlicer
 
         public QuickSelect()
         {
+            this.Name = "MissingNo";
             this.Types = new List<string>{"MissingNo"};
         }
 
+        /// <summary>
+        /// Creates new QuickSelect object
+        /// </summary>
+        /// <param name="name">Name of QuickSelect</param>
+        /// <param name="types">List of log types to include</param>
         public QuickSelect(string name, List<string> types)
         {
             this.Name = name;
@@ -57,6 +60,9 @@ namespace LogSlicer
             QuickSelects.Add(this);
         }
 
+        /// <summary>
+        /// Saves QuickSelect object to app.config
+        /// </summary>
         public void WriteToConfig()
         {
             Config.Save("QuickSelectNames", this.Name, false, false);
@@ -67,6 +73,10 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Loads QuickSelects from app.config
+        /// </summary>
+        /// <returns>List of configured log sets</returns>
         public static List<QuickSelect> LoadQuickSelectsFromConfig()
         {
             List<QuickSelect> results = new List<QuickSelect>();

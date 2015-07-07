@@ -35,7 +35,6 @@ namespace LogSlicer
     {
         BackgroundWorker bwSnipLogs = new BackgroundWorker();
         
-
         public Main()
         {
             InitializeComponent();
@@ -169,6 +168,9 @@ namespace LogSlicer
             Slicer.OutputFolder = outFolderPath;
         }
 
+        /// <summary>
+        /// Used to populate preconfigured log selects
+        /// </summary>
         private void LoadQuickSelects()
         {
             List<QuickSelect> quickSelects = QuickSelect.LoadQuickSelectsFromConfig();
@@ -179,6 +181,10 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Adds QuickSelect to the Menu bar
+        /// </summary>
+        /// <param name="quickSelect">Item to add</param>
         public void AddQuickSelect(QuickSelect quickSelect)
         {
             ToolStripMenuItem item = new ToolStripMenuItem(quickSelect.Name);
@@ -212,6 +218,10 @@ namespace LogSlicer
             SetDefaultDateTimes(logs);
         }
 
+        /// <summary>
+        /// Sets the default start/end times of logs based on earliest and latest create and last write time
+        /// </summary>
+        /// <param name="logs">Logs to get times from</param>
         private void SetDefaultDateTimes(List<ININLog> logs)
         {
             DateTime min = logs.Min(x => x.CreateDate);
@@ -264,6 +274,11 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Presents dialog to select log folder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogsFolderBrowseButton_Click(object sender, EventArgs e)
         {
             ININLog.Logs = null;
@@ -288,6 +303,11 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Presents dialog to select output folder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OutputFolderBrowseButton_Click(object sender, EventArgs e)
         {
             DialogResult result = outputBrowserDialog.ShowDialog();
@@ -301,6 +321,11 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Snips selected logs with specified settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sliceButton_Click(object sender, EventArgs e)
         {
             if (!(bwSnipLogs.IsBusy))
@@ -310,22 +335,31 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Close the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
-
-        private void fTPToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FTPTest test = new FTPTest();
-            test.Show();
-        }
         
+        /// <summary>
+        /// Event handler for Quick Select Menu Item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void quickSelect_Click(object sender, EventArgs e)
         {
             SelectLogs(QuickSelect.QuickSelects.Find(x => x.Name == sender.ToString()).Types);
         }
 
+        /// <summary>
+        /// Creates new quick select set from current selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addCurrentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (logListBox.CheckedItems.Cast<string>().ToList().Count != 0)

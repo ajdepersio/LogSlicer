@@ -15,7 +15,8 @@ namespace LogSlicer
     /// </summary>
     class Packer
     {
-        private static readonly string _FTPAddress = "ftp://ftp.inin.com/upload/";
+        
+        private static readonly string _FTPAddress = "ftp://ftp.inin.com/upload/";  //TODO - Make this configurable from app.config
         private static string _ticket;
 
         /// <summary>
@@ -74,6 +75,11 @@ namespace LogSlicer
             Slicer.OutputFilePaths.Add(outFile);
         }
 
+        /// <summary>
+        /// Extracts contents of .zip file
+        /// </summary>
+        /// <param name="file">.zip file to extract</param>
+        /// <param name="outFolder">folder to extract contents to</param>
         public static void UnZip(string file, string outFolder)
         {
             ZipFile zip = ZipFile.Read(file);
@@ -84,6 +90,14 @@ namespace LogSlicer
             }
         }
 
+        /// <summary>
+        /// Creates FTP session
+        /// </summary>
+        /// <param name="username">FTP username</param>
+        /// <param name="password">FTP password</param>
+        /// <param name="FTPAddress">FTP address</param>
+        /// <param name="requestMethod">Type of method to be used</param>
+        /// <returns></returns>
         private static FtpWebRequest Login(string username, string password, string FTPAddress, string requestMethod)
         {
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(FTPAddress);
@@ -98,6 +112,13 @@ namespace LogSlicer
             return request;
         }
 
+        /// <summary>
+        /// Uploads files to FTP
+        /// </summary>
+        /// <param name="request">FTP session</param>
+        /// <param name="file">File to upload</param>
+        /// <param name="bw">Background worker to track process</param>
+        /// <returns></returns>
         private static string Upload(FtpWebRequest request, string file, BackgroundWorker bw = null)
         {
             string results;
@@ -135,6 +156,15 @@ namespace LogSlicer
             return results;
         }
 
+        /// <summary>
+        /// Creates FTP sessions and uploads logs
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="ticket"></param>
+        /// <param name="filePath"></param>
+        /// <param name="bw"></param>
+        /// <returns></returns>
         public static string SendToSupport(string username, string password, string ticket, string filePath, BackgroundWorker bw = null)
         {
             string FTPRequestPath = FTPAddress + ticket + "/" + Path.GetFileName(filePath);
