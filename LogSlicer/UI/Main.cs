@@ -188,8 +188,14 @@ namespace LogSlicer
         public void AddQuickSelect(QuickSelect quickSelect)
         {
             ToolStripMenuItem item = new ToolStripMenuItem(quickSelect.Name);
+            item.Name = quickSelect.Name;
             item.Click += new EventHandler(quickSelect_Click);
             this.quickSelectToolStripMenuItem.DropDownItems.Add(item);
+        }
+
+        public void RemoteQuickSelect(QuickSelect qs)
+        {
+            this.quickSelectToolStripMenuItem.DropDownItems.RemoveByKey(qs.Name);
         }
 
         /// <summary>

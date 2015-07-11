@@ -61,7 +61,7 @@ namespace LogSlicer
         /// Deletes a key from app.config file
         /// </summary>
         /// <param name="key">Name of the AppSettings key to delete</param>
-        private static void Delete(string key)
+        public static void Delete(string key)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
             config.AppSettings.Settings.Remove(key);

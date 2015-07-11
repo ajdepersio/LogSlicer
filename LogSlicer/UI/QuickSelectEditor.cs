@@ -45,8 +45,20 @@ namespace LogSlicer.UI
             }
             else
             {
-                MessageBox.Show(String.Format("Are you sure you want to delete the Quick Select item {0}?", lbQuickSelects.SelectedItem), "Confirm Delete", MessageBoxButtons.YesNo);
-                //Handler Yes and No Button events...
+                DialogResult result = MessageBox.Show(String.Format("Are you sure you want to delete the Quick Select item {0}?", lbQuickSelects.SelectedItem), 
+                    "Confirm Delete", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    string qsToRemove = lbQuickSelects.SelectedItem.ToString();
+
+                    QuickSelect qs = QuickSelect.QuickSelects.Find(x => x.Name == qsToRemove);
+                    qs.Delete();
+                    //Update QuickSelectEditor and Main UI
+                    lbQuickSelects.Items.Remove(lbQuickSelects.SelectedItem);
+
+                    _mainForm.RemoteQuickSelect(qs);
+                }
             }
         }
     }

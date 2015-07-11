@@ -73,6 +73,21 @@ namespace LogSlicer
             }
         }
 
+        public void Delete()
+        {
+            //Remote from master list
+            List<string> quickSelectNames = Config.Load("QuickSelectNames", false).Split(',').ToList();
+            quickSelectNames.Remove(this.Name);
+            Config.Save("QuickSelectNames", string.Join(",", quickSelectNames.ToArray()), false, true);
+
+            //Delete the quickselect log sets
+            Config.Delete(this.Name);
+
+            //Remove from QuickSelects List
+            QuickSelects.Remove(QuickSelects.Find(x => x.Name == this.Name));
+
+        }
+
         /// <summary>
         /// Loads QuickSelects from app.config
         /// </summary>
