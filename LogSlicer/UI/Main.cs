@@ -364,11 +364,10 @@ namespace LogSlicer
         {
             if (logListBox.CheckedItems.Cast<string>().ToList().Count != 0)
             {
-                LogSetTextBox popup = new LogSetTextBox(this);
+                LogSetTextBox popup = new LogSetTextBox(this, this.logListBox.CheckedItems.Cast<string>().ToList());
                 popup.Text = "Enter Name For Log Set";
                 popup.inputLabel.Text = "Name";
                 popup.ShowDialog();
-
             }
             else
             {
@@ -378,7 +377,8 @@ namespace LogSlicer
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            QuickSelectEditor editor = new QuickSelectEditor(this);
+            editor.ShowDialog();
         }
     }
 }
