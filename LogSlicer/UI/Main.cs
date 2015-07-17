@@ -386,5 +386,11 @@ namespace LogSlicer
             QuickSelectEditor editor = new QuickSelectEditor(this);
             editor.ShowDialog();
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This doesn't do anything yet, or does it?...");
+            Config.Save("Options", "Gary was here, Ash is a loser!", true, true);
+        }
     }
 }

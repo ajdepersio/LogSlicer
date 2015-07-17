@@ -103,3 +103,4 @@ C:\Users\Kajayacht\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSli
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.UI.LogSetTextBox.resources
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.UI.QuickSelectEditor.resources
 C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.csprojResolveAssemblyReference.cache
+C:\Users\Andrew.DePersio\OneDrive\Workspace\C Sharp\Personal Projects\LogSlicer\LogSlicer\obj\x86\Debug\LogSlicer.UI.OptionEditor.resources

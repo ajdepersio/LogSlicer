@@ -126,6 +126,12 @@
     <Compile Include="UI\LogSetTextBox.Designer.cs">
       <DependentUpon>LogSetTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OptionEditor.Designer.cs">
+      <DependentUpon>OptionEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\QuickSelectEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +156,9 @@
     </Compile>
     <EmbeddedResource Include="UI\LogSetTextBox.resx">
       <DependentUpon>LogSetTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OptionEditor.resx">
+      <DependentUpon>OptionEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\QuickSelectEditor.resx">
       <DependentUpon>QuickSelectEditor.cs</DependentUpon>
