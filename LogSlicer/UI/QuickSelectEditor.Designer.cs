@@ -91,7 +91,11 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbQuickSelects);
             this.Controls.Add(this.txtLogSets);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "QuickSelectEditor";
+            this.ShowIcon = false;
             this.Text = "QuickSelectEditor";
             this.ResumeLayout(false);
             this.PerformLayout();
