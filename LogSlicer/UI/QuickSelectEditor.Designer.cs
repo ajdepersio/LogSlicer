@@ -44,11 +44,13 @@
             // 
             // lbQuickSelects
             // 
+            this.lbQuickSelects.DisplayMember = "Name";
             this.lbQuickSelects.FormattingEnabled = true;
             this.lbQuickSelects.Location = new System.Drawing.Point(13, 13);
             this.lbQuickSelects.Name = "lbQuickSelects";
             this.lbQuickSelects.Size = new System.Drawing.Size(237, 186);
             this.lbQuickSelects.TabIndex = 0;
+            this.lbQuickSelects.SelectedIndexChanged += new System.EventHandler(this.lbQuickSelects_SelectedIndexChanged);
             // 
             // btnSave
             // 

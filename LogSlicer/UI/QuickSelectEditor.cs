@@ -17,6 +17,16 @@ namespace LogSlicer.UI
         {
             this._mainForm = mainForm;
             InitializeComponent();
+
+            this.initQuickSelectListBox(QuickSelect.QuickSelects);
+        }
+
+        private void initQuickSelectListBox(List<QuickSelect> quickSelects)
+        {
+            foreach(QuickSelect quickSelect in quickSelects)
+            {
+                this.lbQuickSelects.Items.Add(quickSelect);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -55,11 +65,26 @@ namespace LogSlicer.UI
                     QuickSelect qs = QuickSelect.QuickSelects.Find(x => x.Name == qsToRemove);
                     qs.Delete();
                     //Update QuickSelectEditor and Main UI
+                    lbQuickSelects.ClearSelected();
                     lbQuickSelects.Items.Remove(lbQuickSelects.SelectedItem);
 
                     _mainForm.RemoteQuickSelect(qs);
                 }
             }
+        }
+
+        private void lbQuickSelects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                QuickSelect selectedQuickSelect = (QuickSelect)lbQuickSelects.SelectedItem;
+                txtLogSets.Text = string.Join(",", selectedQuickSelect.Types.ToArray());
+            }
+            catch(NullReferenceException)
+            {
+                txtLogSets.Text = "";
+            }
+            
         }
     }
 }

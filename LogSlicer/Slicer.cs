@@ -130,7 +130,7 @@ namespace LogSlicer
             }
 
             //User picked the wrong file
-            if (Path.GetFileName(logSnipPath) != "logsnip.exe")
+            if (!(Path.GetFileName(logSnipPath).StartsWith("logsnip")))
             {
                 MessageBox.Show("Please select logsnip.exe (\\Interactive Intelligence\\ININ Trace Initialization\\)");
                 LoadLogSnip();
@@ -148,6 +148,8 @@ namespace LogSlicer
         /// <returns>File path to logsnip.exe</returns>
         private static string FindLogSnipPath()
         {
+            //TODO Update this so logsnip version is considered.  Also so it's not as janky...
+
             List<string> searchPaths = new List<string> 
             { 
                 "D:\\i3\\ic\\ININ Trace Initialization\\logsnip.exe",

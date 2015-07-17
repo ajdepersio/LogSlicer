@@ -60,6 +60,11 @@ namespace LogSlicer
             QuickSelects.Add(this);
         }
 
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
         /// <summary>
         /// Saves QuickSelect object to app.config
         /// </summary>
