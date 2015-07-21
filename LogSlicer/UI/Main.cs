@@ -370,10 +370,21 @@ namespace LogSlicer
         {
             if (logListBox.CheckedItems.Cast<string>().ToList().Count != 0)
             {
-                LogSetTextBox popup = new LogSetTextBox(this, this.logListBox.CheckedItems.Cast<string>().ToList());
+                string quickSelectName = "";
+
+                MessageTextBox popup = new MessageTextBox();
                 popup.Text = "Enter Name For Log Set";
                 popup.inputLabel.Text = "Name";
                 popup.ShowDialog();
+
+                quickSelectName = popup.Results;
+
+                if (quickSelectName != "")
+                {
+                    QuickSelect qs = new QuickSelect(quickSelectName, this.logListBox.CheckedItems.Cast<string>().ToList());
+                    qs.WriteToConfig();
+                    this.AddQuickSelect(qs);
+                }
             }
             else
             {

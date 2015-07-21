@@ -120,11 +120,11 @@
     <Compile Include="ININLog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\LogSetTextBox.cs">
+    <Compile Include="UI\MessageTextBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\LogSetTextBox.Designer.cs">
-      <DependentUpon>LogSetTextBox.cs</DependentUpon>
+    <Compile Include="UI\MessageTextBox.Designer.cs">
+      <DependentUpon>MessageTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\OptionEditor.cs">
       <SubType>Form</SubType>
@@ -154,8 +154,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\LogSetTextBox.resx">
-      <DependentUpon>LogSetTextBox.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MessageTextBox.resx">
+      <DependentUpon>MessageTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OptionEditor.resx">
       <DependentUpon>OptionEditor.cs</DependentUpon>

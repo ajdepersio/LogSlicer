@@ -32,14 +32,26 @@ namespace LogSlicer.UI
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //TODO  Make it so that ListBox updates itself with the new logs
-            if (txtLogSets.Text.Length > 0)
+            if (lvLogSet.Items.Count > 0)
             {
-                List<String> logTypes = txtLogSets.Text.Split(',').ToList<String>();
 
-                LogSetTextBox popup = new LogSetTextBox(_mainForm, logTypes);
+                List<String> logTypes = lvLogSet.Items.Cast<String>().ToList();
+
+                string quickSelectName = "";
+
+                MessageTextBox popup = new MessageTextBox();
                 popup.Text = "Enter Name For Log Set";
                 popup.inputLabel.Text = "Name";
                 popup.ShowDialog();
+
+                quickSelectName = popup.Results;
+
+                if (quickSelectName != "")
+                {
+                    QuickSelect qs = new QuickSelect(quickSelectName, logTypes);
+                    qs.WriteToConfig();
+                    _mainForm.AddQuickSelect(qs);
+                }
             }
             else
             {
@@ -77,12 +89,25 @@ namespace LogSlicer.UI
         {
             try
             {
+                lvLogSet.Clear();
                 QuickSelect selectedQuickSelect = (QuickSelect)lbQuickSelects.SelectedItem;
-                txtLogSets.Text = string.Join(",", selectedQuickSelect.Types.ToArray());
+
+                ListViewItem lvi;
+                foreach(string logName in selectedQuickSelect.Types)
+                {
+                    lvi = new ListViewItem(logName);
+                    lvLogSet.Items.Add(lvi);
+                }
+
+                //ListViewItem[] lvItems = string.Join(",", selectedQuickSelect.Types.ToArray());
+
+                //lvLogSet.Items.AddRange
+                //lvLogSet.Items = string.Join(",", selectedQuickSelect.Types.ToArray());
+                //txtLogSets.Text = string.Join(",", selectedQuickSelect.Types.ToArray());
             }
             catch(NullReferenceException)
             {
-                txtLogSets.Text = "";
+                //txtLogSets.Text = "";
             }
             
         }
