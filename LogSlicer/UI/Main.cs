@@ -23,7 +23,9 @@ namespace LogSlicer
      *  6.1 Read into zipped log files                                          DONE
      *  version 2
      *  7.0 Move Quick Select info into app.config                              DONE
-     *  7.1 Custom Quick Search Lists                                           DONE
+     *  7.1 Custom Quick Search Lists                                           WIP
+     *  7.2 Make an options menu to configure stuff                             
+     *  7.3 Allow full editing through Quick Select Config                      
      *  8. Implement better encryption for storing FTP credentials
      *  9. Snip based on Interaction ID
      *  version 3
@@ -193,7 +195,7 @@ namespace LogSlicer
             this.quickSelectToolStripMenuItem.DropDownItems.Add(item);
         }
 
-        public void RemoteQuickSelect(QuickSelect qs)
+        public void RemoveQuickSelect(QuickSelect qs)
         {
             this.quickSelectToolStripMenuItem.DropDownItems.RemoveByKey(qs.Name);
         }

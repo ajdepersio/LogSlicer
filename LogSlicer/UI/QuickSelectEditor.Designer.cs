@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.lbQuickSelects = new System.Windows.Forms.ListBox();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.lblQuickSelects = new System.Windows.Forms.Label();
             this.lblLogSet = new System.Windows.Forms.Label();
-            this.lvLogSet = new System.Windows.Forms.ListView();
+            this.lbLogs = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lbQuickSelects
@@ -47,15 +45,6 @@
             this.lbQuickSelects.TabIndex = 0;
             this.lbQuickSelects.SelectedIndexChanged += new System.EventHandler(this.lbQuickSelects_SelectedIndexChanged);
             // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(93, 218);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
             // btnDelete
             // 
             this.btnDelete.Location = new System.Drawing.Point(174, 218);
@@ -65,16 +54,6 @@
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(12, 218);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lblQuickSelects
             // 
@@ -94,26 +73,23 @@
             this.lblLogSet.TabIndex = 7;
             this.lblLogSet.Text = "Log Set";
             // 
-            // lvLogSet
+            // lbLogs
             // 
-            this.lvLogSet.LabelEdit = true;
-            this.lvLogSet.Location = new System.Drawing.Point(135, 26);
-            this.lvLogSet.Name = "lvLogSet";
-            this.lvLogSet.Size = new System.Drawing.Size(114, 186);
-            this.lvLogSet.TabIndex = 8;
-            this.lvLogSet.UseCompatibleStateImageBehavior = false;
+            this.lbLogs.FormattingEnabled = true;
+            this.lbLogs.Location = new System.Drawing.Point(139, 26);
+            this.lbLogs.Name = "lbLogs";
+            this.lbLogs.Size = new System.Drawing.Size(110, 186);
+            this.lbLogs.TabIndex = 8;
             // 
             // QuickSelectEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(262, 253);
-            this.Controls.Add(this.lvLogSet);
+            this.Controls.Add(this.lbLogs);
             this.Controls.Add(this.lblLogSet);
             this.Controls.Add(this.lblQuickSelects);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbQuickSelects);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -129,11 +105,9 @@
         #endregion
 
         private System.Windows.Forms.ListBox lbQuickSelects;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label lblQuickSelects;
         private System.Windows.Forms.Label lblLogSet;
-        private System.Windows.Forms.ListView lvLogSet;
+        private System.Windows.Forms.ListBox lbLogs;
     }
 }

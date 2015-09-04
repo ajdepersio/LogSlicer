@@ -32,10 +32,10 @@ namespace LogSlicer.UI
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //TODO  Make it so that ListBox updates itself with the new logs
-            if (lvLogSet.Items.Count > 0)
+            if (lbLogs.Items.Count > 0)
             {
 
-                List<String> logTypes = lvLogSet.Items.Cast<String>().ToList();
+                List<String> logTypes = lbLogs.Items.Cast<String>().ToList();
 
                 string quickSelectName = "";
 
@@ -80,7 +80,8 @@ namespace LogSlicer.UI
                     lbQuickSelects.ClearSelected();
                     lbQuickSelects.Items.Remove(lbQuickSelects.SelectedItem);
 
-                    _mainForm.RemoteQuickSelect(qs);
+                    _mainForm.RemoveQuickSelect(qs);
+                    this.Close();
                 }
             }
         }
@@ -89,14 +90,13 @@ namespace LogSlicer.UI
         {
             try
             {
-                lvLogSet.Clear();
+                lbLogs.Items.Clear();
                 QuickSelect selectedQuickSelect = (QuickSelect)lbQuickSelects.SelectedItem;
 
                 ListViewItem lvi;
                 foreach(string logName in selectedQuickSelect.Types)
                 {
-                    lvi = new ListViewItem(logName);
-                    lvLogSet.Items.Add(lvi);
+                    lbLogs.Items.Add(logName);
                 }
 
                 //ListViewItem[] lvItems = string.Join(",", selectedQuickSelect.Types.ToArray());
