@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace LogSlicer
 {
@@ -81,9 +79,9 @@ namespace LogSlicer
         public void Delete()
         {
             //Remote from master list
-            List<string> quickSelectNames = Config.Load("QuickSelectNames", false).Split(',').ToList();
+            List<string> quickSelectNames = Config.Load("QuickSelectNames").Split(',').ToList();
             quickSelectNames.Remove(this.Name);
-            Config.Save("QuickSelectNames", string.Join(",", quickSelectNames.ToArray()), false, true);
+            Config.Save("QuickSelectNames", string.Join(",", quickSelectNames.ToArray()));
 
             //Delete the quickselect log sets
             Config.Delete(this.Name);
@@ -102,13 +100,13 @@ namespace LogSlicer
             List<QuickSelect> results = new List<QuickSelect>();
             List<string> quickSelectTypes = new List<string>();
 
-            List<string> quickSelectNames = Config.Load("QuickSelectNames", false).Split(',').ToList();
+            List<string> quickSelectNames = Config.Load("QuickSelectNames").Split(',').ToList();
 
             foreach(string quickSelect in quickSelectNames)
             {
                 if (quickSelect != "")
                 {
-                    quickSelectTypes = Config.Load(quickSelect, false).Split(',').ToList();
+                    quickSelectTypes = Config.Load(quickSelect).Split(',').ToList();
                     results.Add(new QuickSelect(quickSelect, quickSelectTypes));
                 }
             }

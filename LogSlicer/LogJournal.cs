@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace LogSlicer
@@ -10,13 +9,8 @@ namespace LogSlicer
     class LogJournal
     {
         public static List<LogJournal> Journals;
-        private string _filePath;
-        
-        public string FilePath
-        {
-            get { return _filePath; }
-            set { _filePath = value; }
-        }
+
+        public string FilePath { get; set; }
 
         public DateTime[] Times
         {
@@ -61,20 +55,14 @@ namespace LogSlicer
 
         public static List<LogJournal> LoadJournals(string folderName)
         {
-            string[] journalFiles = System.IO.Directory.GetFiles(folderName, "*.ininlog_journal");
+            string[] journalFiles = Directory.GetFiles(folderName, "*.ininlog_journal");
             
             if (journalFiles.Length == 0)
             {
                 return new List<LogJournal>();
             }
-            List<LogJournal> journals = new List<LogJournal>();
 
-            foreach (string journalFile in journalFiles)
-            {
-                LogJournal j = new LogJournal(journalFile);
-                journals.Add(j);
-            }
-            return journals;
+            return journalFiles.Select(journalFile => new LogJournal(journalFile)).ToList();
         }
 
         public DateTime[] TimesForIndex(int index)
@@ -98,13 +86,13 @@ namespace LogSlicer
             return results;
         }
 
-        public DateTime GetStartTime(ININLog log)
+        public DateTime GetStartTime(IninLog log)
         {
             //Get first 20 characters for
             //Start.*this.Name ie Start    Path/To/Log/mylogfile.ininlog
 
             string logName = log.Name.Replace(".zip", ".ininlog");
-            DateTime results = new DateTime();
+            DateTime results;
 
             string[] lines = File.ReadAllLines(this.FilePath);
 
@@ -130,12 +118,12 @@ namespace LogSlicer
         /// </summary>
         /// <param name="log">Log file to get end time for</param>
         /// <returns></returns>
-        public DateTime GetEndTime(ININLog log)
+        public DateTime GetEndTime(IninLog log)
         {
             //Similar to GetStartTime but for End
 
             string logName = log.Name.Replace(".zip", ".ininlog");
-            DateTime results = new DateTime();
+            DateTime results;
             string[] lines = File.ReadAllLines(this.FilePath);
 
             Regex rgx = new Regex("End.*" + logName);

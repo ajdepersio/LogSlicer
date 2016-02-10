@@ -1,6 +1,6 @@
 ﻿namespace LogSlicer
 {
-    partial class FTPLogin
+    partial class FtpLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Button cancelButton;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FTPLogin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FtpLogin));
             this.userLabel = new System.Windows.Forms.Label();
             this.passwordLable = new System.Windows.Forms.Label();
             this.userTextBox = new System.Windows.Forms.TextBox();
@@ -128,7 +128,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "FTPLogin";
+            this.Name = "FtpLogin";
             this.Text = "FTP Login";
             this.ResumeLayout(false);
             this.PerformLayout();

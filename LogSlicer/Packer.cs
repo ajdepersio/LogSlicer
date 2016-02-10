@@ -1,12 +1,9 @@
-﻿using Ionic.Zip;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text;
-using System.Windows.Forms;
-
+using Ionic.Zip;
 
 namespace LogSlicer
 {
@@ -95,12 +92,12 @@ namespace LogSlicer
         /// </summary>
         /// <param name="username">FTP username</param>
         /// <param name="password">FTP password</param>
-        /// <param name="FTPAddress">FTP address</param>
+        /// <param name="address">FTP address</param>
         /// <param name="requestMethod">Type of method to be used</param>
         /// <returns></returns>
-        private static FtpWebRequest Login(string username, string password, string FTPAddress, string requestMethod)
+        private static FtpWebRequest Login(string username, string password, string address, string requestMethod)
         {
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(FTPAddress);
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(address);
 
             request.Proxy = new WebProxy(); //-----The requested FTP command is not supported when using HTTP proxy.
             request.Method = requestMethod;
@@ -149,7 +146,7 @@ namespace LogSlicer
                 results = "Upload File Complete, status: " + response.StatusDescription;
                 response.Close();
             }
-            catch (System.Net.WebException e)
+            catch (WebException e)
             {
                 results = e.Message;
             }
@@ -167,8 +164,8 @@ namespace LogSlicer
         /// <returns></returns>
         public static string SendToSupport(string username, string password, string ticket, string filePath, BackgroundWorker bw = null)
         {
-            string FTPRequestPath = FTPAddress + ticket + "/" + Path.GetFileName(filePath);
-            FtpWebRequest request = Login(username, password, FTPRequestPath, WebRequestMethods.Ftp.UploadFile);
+            string ftpRequestPath = FTPAddress + ticket + "/" + Path.GetFileName(filePath);
+            FtpWebRequest request = Login(username, password, ftpRequestPath, WebRequestMethods.Ftp.UploadFile);
             return Upload(request, filePath, bw);
         }
     }

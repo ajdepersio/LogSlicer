@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using System.IO;
-using LogSlicer.UI;
 
-namespace LogSlicer
+namespace LogSlicer.UI
 {
     /**
      * ********************************Future Improvements**********************************
@@ -62,14 +61,14 @@ namespace LogSlicer
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            ININLog.SelectedLogTypes = logListBox.CheckedItems.Cast<string>().ToList();
+            IninLog.SelectedLogTypes = logListBox.CheckedItems.Cast<string>().ToList();
             //Return logs of selected types
-            List<ININLog> selectedLogs = ININLog.FindSelectedLogs();
+            List<IninLog> selectedLogs = IninLog.FindSelectedLogs();
 
             //If there's zipped logs, we'll want to filter the logs by time
             if (selectedLogs.Find(x => x.IsZipped == true) != null)
             {
-                selectedLogs = ININLog.FilterLogsByTime(selectedLogs, startDateTimePicker.Value, endDateTimePicker.Value);
+                selectedLogs = IninLog.FilterLogsByTime(selectedLogs, startDateTimePicker.Value, endDateTimePicker.Value);
             }
             
             //No logs selected
@@ -89,7 +88,7 @@ namespace LogSlicer
             //Export registry with logs
             if (registryCheckBox.Checked == true)
             {
-                ININRegistry.ExportININRegistry();
+                IninRegistry.ExportIninRegistry();
             }
             //Compress output if necissary
             if (zipCheckBox.Checked == true)
@@ -125,7 +124,7 @@ namespace LogSlicer
             if (ticketTextBox.Text != "")
             {
                 Packer.Ticket = ticketTextBox.Text;
-                FTPLogin ftpLogin = new FTPLogin();
+                FtpLogin ftpLogin = new FtpLogin();
                 ftpLogin.ShowDialog();
                 //wait for snipping to stop before trying to upload logs to FTP
             }
@@ -146,22 +145,22 @@ namespace LogSlicer
             {
                 logFolderPath += "\\";
             }
-            logFolderPath += System.DateTime.Now.ToString("yyyy'-'MM'-'dd");
+            logFolderPath += DateTime.Now.ToString("yyyy'-'MM'-'dd");
 
             //If found, set the Logs folder path
             if (Directory.Exists(logFolderPath))
             {
                 logsTextBox.Text = logFolderPath;
                 LogJournal.Journals = LogJournal.LoadJournals(logFolderPath);
-                ININLog.Logs = ININLog.LoadLogs(logFolderPath);
+                IninLog.Logs = IninLog.LoadLogs(logFolderPath);
 
-                if (ININLog.Logs.Count == 0)
+                if (IninLog.Logs.Count == 0)
                 {
                     MessageBox.Show("No valid Log files found.  Please check the folder path and try again.");
                     return;
                 }
                 
-                SetLogListData(ININLog.Logs);
+                SetLogListData(IninLog.Logs);
             }
 
             //Load Output folder path from app.config
@@ -201,17 +200,17 @@ namespace LogSlicer
         }
 
         /// <summary>
-        /// Populate logListBox with ININLog items
+        /// Populate logListBox with IninLog items
         /// </summary>
         /// <param name="logs">Logs to populate List Box with</param>
-        private void SetLogListData(List<ININLog> logs)
+        private void SetLogListData(List<IninLog> logs)
         {
             if (logs == null)
             {
                 logListBox.Items.Clear();
                 return;
             }
-            foreach (ININLog l in logs)
+            foreach (IninLog l in logs)
             {
                 //Only add one item for each type
                 if (logListBox.Items.Contains(l.Type))
@@ -230,7 +229,7 @@ namespace LogSlicer
         /// Sets the default start/end times of logs based on earliest and latest create and last write time
         /// </summary>
         /// <param name="logs">Logs to get times from</param>
-        private void SetDefaultDateTimes(List<ININLog> logs)
+        private void SetDefaultDateTimes(List<IninLog> logs)
         {
             DateTime min = logs.Min(x => x.CreateDate);
             DateTime max = logs.Max(x => x.EndDate);
@@ -289,7 +288,7 @@ namespace LogSlicer
         /// <param name="e"></param>
         private void LogsFolderBrowseButton_Click(object sender, EventArgs e)
         {
-            ININLog.Logs = null;
+            IninLog.Logs = null;
             LogJournal.Journals = null;
             SetLogListData(null);
             DialogResult result = logsBrowserDialog.ShowDialog();
@@ -298,15 +297,15 @@ namespace LogSlicer
                 string folderName = logsBrowserDialog.SelectedPath;
 
                 LogJournal.Journals = LogJournal.LoadJournals(folderName);
-                ININLog.Logs = ININLog.LoadLogs(folderName);
+                IninLog.Logs = IninLog.LoadLogs(folderName);
 
-                if (ININLog.Logs.Count == 0)
+                if (IninLog.Logs.Count == 0)
                 {
                     MessageBox.Show("No valid Log files found.  Please check the folder path and try again.");
                     return;
                 }
                 
-                SetLogListData(ININLog.Logs);
+                SetLogListData(IninLog.Logs);
                 logsTextBox.Text = folderName;
             }
         }

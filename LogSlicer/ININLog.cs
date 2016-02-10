@@ -3,33 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace LogSlicer
 {
     /// <summary>
     /// Object representing a .ininlog file and various other properties unique to such
     /// </summary>
-    class ININLog
+    class IninLog
     {
-        private string _filePath;
-        public static List<ININLog> Logs;
+        public static List<IninLog> Logs;
         public static List<string> SelectedLogTypes;
 
         /// <summary>
         /// Filepath to .ininlog file
         /// </summary>
-        public string FilePath
-        {
-            get
-            {
-                return _filePath;
-            }
-            set
-            {
-                this._filePath = value;
-            }
-        }
+        public string FilePath { get; set; }
 
         /// <summary>
         /// Name of the log file
@@ -83,6 +71,7 @@ namespace LogSlicer
             {
                 int index;
                 Int32.TryParse(Regex.Match(Path.GetFileName(this.FilePath), @"_([^\.]*)\.").Groups[1].Value, out index);
+                
                 return (index > 0) ? index : 0;
             }
         }
@@ -137,55 +126,35 @@ namespace LogSlicer
         }
 
         /// <summary>
-        /// Creates a new ININLog object
+        /// Creates a new IninLog object
         /// </summary>
         /// <param name="filePath">Filepath to .ininlog file</param>
-        public ININLog(string filePath)
+        public IninLog(string filePath)
         {
             this.FilePath = filePath;
         }
 
         /// <summary>
-        /// Default Constructor.  Warning: Will corrupt your Hall of Fame and multiply 6th item slot by 128
+        /// Creates IninLog objects for each .ininlog file in a given directory
         /// </summary>
-        public ININLog()
+        /// <param name="folderName">Folder containing .ininlog files</param>
+        /// <returns>List of IninLog objects from the folder</returns>
+        public static List<IninLog> LoadLogs(string folderName)
         {
-            this.FilePath = "MissingNo";
-        }
-
-        /// <summary>
-        /// Creates ININLog objects for each .ininlog file in a given directory
-        /// </summary>
-        /// <param name="folderName">Folder containig .ininlog files</param>
-        /// <returns>List of ININLog objects from the folder</returns>
-        public static List<ININLog> LoadLogs(string folderName)
-        {
-            string[] logFiles = System.IO.Directory.GetFiles(folderName, "*.ininlog");
-            string[] zipFiles = System.IO.Directory.GetFiles(folderName, "*.zip");
+            string[] logFiles = Directory.GetFiles(folderName, "*.ininlog");
+            string[] zipFiles = Directory.GetFiles(folderName, "*.zip");
             
             if (logFiles.Length == 0 && zipFiles.Length == 0)
             {
-                return new List<ININLog>();
+                return new List<IninLog>();
             }
-            List<ININLog> logs = new List<ININLog>();
-
-            foreach (string logFile in logFiles)
-            {
-                ININLog l = new ININLog(logFile);
-                logs.Add(l);
-            }
+            List<IninLog> logs = logFiles.Select(logFile => new IninLog(logFile)).ToList();
 
             //Add zip files if there's a corresponding .ininlog_journal file
             Regex rgx = new Regex("_?\\d*.zip");
-            foreach (string zipFile in zipFiles)
-            {
-                string type = rgx.Replace(Path.GetFileName(zipFile), "");
-                if (LogJournal.Journals.Find(x => x.Type == type) != null)
-                {
-                    ININLog l = new ININLog(zipFile);
-                    logs.Add(l);
-                }
-            }
+            logs.AddRange(from zipFile in zipFiles let type = rgx.Replace(Path.GetFileName(zipFile), "") 
+                          where LogJournal.Journals.Find(x => x.Type == type) != null 
+                          select new IninLog(zipFile));
 
             return logs;
         }
@@ -194,12 +163,12 @@ namespace LogSlicer
         /// Returns all logs in the SelectedLogTypes property
         /// </summary>
         /// <returns></returns>
-        public static List<ININLog> FindSelectedLogs()
+        public static List<IninLog> FindSelectedLogs()
         {
-            List<ININLog> results = new List<ININLog>();
+            List<IninLog> results = new List<IninLog>();
             foreach (string type in SelectedLogTypes)
             {
-                List<ININLog> logsOfType = LogsOfType(type);
+                List<IninLog> logsOfType = LogsOfType(type);
                 results.AddRange(logsOfType);
             }
             return results;
@@ -212,17 +181,9 @@ namespace LogSlicer
         /// <param name="start">Beginning Datetime</param>
         /// <param name="end">Ending Datetime</param>
         /// <returns></returns>
-        public static List<ININLog> FilterLogsByTime(List<ININLog> logs, DateTime start, DateTime end)
+        public static List<IninLog> FilterLogsByTime(List<IninLog> logs, DateTime start, DateTime end)
         {
-            List<ININLog> results = new List<ININLog>();
-            foreach (ININLog log in logs)
-            {
-                if (!(log.CreateDate >= end || log.EndDate <= start))
-                {
-                    results.Add(log);
-                }
-            }
-            return results;
+            return logs.Where(log => !(log.CreateDate >= end || log.EndDate <= start)).ToList();
         }
 
         /// <summary>
@@ -230,29 +191,21 @@ namespace LogSlicer
         /// </summary>
         /// <param name="type">Type of logs to return</param>
         /// <returns></returns>
-        private static List<ININLog> LogsOfType(string type)
+        private static List<IninLog> LogsOfType(string type)
         {
-            List<ININLog> results = new List<ININLog>();
-            foreach (ININLog log in ININLog.Logs)
-            {
-                if (log.Type == type)
-                {
-                    results.Add(log);
-                }
-            }
-            return results;
+            return Logs.Where(log => log.Type == type).ToList();
         }
 
         /// <summary>
         /// Returns start and end time for an Interaction ID
         /// </summary>
-        /// <param name="interactionID">Interaction ID to get start/end time</param>
+        /// <param name="interactionId">Interaction ID to get start/end time</param>
         /// <returns>Start and End time of Interaction</returns>
-        public Tuple<DateTime, DateTime> GetInteractionTime(string interactionID)
+        public Tuple<DateTime, DateTime> GetInteractionTime(string interactionId)
         {
             //TODO Provide implementation
             //Read from CallLog log for start/end time.  Investigate snapshot source for implementation of log reading API
-            return Tuple.Create(System.DateTime.Now, System.DateTime.Now);
+            return Tuple.Create(DateTime.Now, DateTime.Now);
         }
     }
 }

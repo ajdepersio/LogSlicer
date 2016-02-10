@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace LogSlicer.UI
@@ -18,10 +14,10 @@ namespace LogSlicer.UI
             this._mainForm = mainForm;
             InitializeComponent();
 
-            this.initQuickSelectListBox(QuickSelect.QuickSelects);
+            this.InitQuickSelectListBox(QuickSelect.QuickSelects);
         }
 
-        private void initQuickSelectListBox(List<QuickSelect> quickSelects)
+        private void InitQuickSelectListBox(List<QuickSelect> quickSelects)
         {
             foreach(QuickSelect quickSelect in quickSelects)
             {

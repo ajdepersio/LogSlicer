@@ -92,11 +92,10 @@ namespace LogSlicer
                 if (foundPath != null)
                 {
                     SetLogSnipPath(foundPath);
-                    return;
                 }
                 else
                 {
-                    logSnipPath = SelectLogSnip();
+                    PathToLogSnip = SelectLogSnip();
                 }
                 
             }
@@ -130,7 +129,8 @@ namespace LogSlicer
             }
 
             //User picked the wrong file
-            if (!(Path.GetFileName(logSnipPath).StartsWith("logsnip")))
+            string fileName = Path.GetFileName(logSnipPath);
+            if (fileName != null && !(fileName.StartsWith("logsnip")))
             {
                 MessageBox.Show("Please select logsnip.exe (\\Interactive Intelligence\\ININ Trace Initialization\\)");
                 LoadLogSnip();
@@ -185,16 +185,16 @@ namespace LogSlicer
         /// <summary>
         /// Snip log files based off of start and end time
         /// </summary>
-        /// <param name="journals">Logs to process</param>
+        /// <param name="logs">Logs to process</param>
         /// <param name="start">Start time to snip from</param>
         /// <param name="end">End time to stop snipping</param>
-        public static void SnipLogs(List<ININLog> logs, DateTime start, DateTime end)
+        public static void SnipLogs(List<IninLog> logs, DateTime start, DateTime end)
         {
             OutputFilePaths.Clear();
-            List<ININLog> currentLogs = new List<ININLog>();
-            foreach(string type in ININLog.SelectedLogTypes)
+            List<IninLog> currentLogs = new List<IninLog>();
+            foreach(string type in IninLog.SelectedLogTypes)
             {
-                List<ININLog> logsOfType = logs.FindAll(x => x.Type == type);
+                List<IninLog> logsOfType = logs.FindAll(x => x.Type == type);
 
                 //No logs for that selected type within the time range
                 if (logsOfType.Count == 0)
@@ -202,7 +202,7 @@ namespace LogSlicer
                     continue;
                 }
                 
-                foreach (ININLog log in logsOfType)
+                foreach (IninLog log in logsOfType)
                 {
                     //If the log is zipped, we'll need to unzip it
                     if (log.IsZipped)
@@ -210,7 +210,7 @@ namespace LogSlicer
                         Packer.UnZip(log.FilePath, OutputFolder + "\\temp\\");
                         //Remove the zip from currentLogs replace with unzipped log
 
-                        ININLog l = new ININLog(OutputFolder + "\\temp\\" + Path.GetFileNameWithoutExtension(log.FilePath) + ".ininlog");
+                        IninLog l = new IninLog(OutputFolder + "\\temp\\" + Path.GetFileNameWithoutExtension(log.FilePath) + ".ininlog");
                         currentLogs.Add(l);
                     }
                     else
@@ -226,14 +226,14 @@ namespace LogSlicer
         /// <summary>
         /// Build process arguments for logsnip.exe with the given parameters and start snipping journals
         /// </summary>
-        /// <param name="journalFiles">Logs to snip, typically of the same type</param>
+        /// <param name="logFiles">Logs to snip, typically of the same type</param>
         /// <param name="start">Start time to snip from</param>
         /// <param name="end">End time to stop snipping</param>
-        private static void RunLogSnip(List<ININLog> logFiles, DateTime start, DateTime end)
+        private static void RunLogSnip(List<IninLog> logFiles, DateTime start, DateTime end)
         {
             //Get each log file path and combine into one string
             List<string> logFilePaths = new List<string>();
-            foreach(ININLog log in logFiles)
+            foreach(IninLog log in logFiles)
             {
                 logFilePaths.Add(log.FilePath);
             }
@@ -249,7 +249,7 @@ namespace LogSlicer
                     start.ToString("yyyy'-'MM'-'dd'@'HH':'mm':'ss.fff"), 
                     end.ToString("yyyy'-'MM'-'dd'@'HH':'mm':'ss.fff"));
 
-            Process logSnipProcess = new System.Diagnostics.Process();
+            Process logSnipProcess = new Process();
             logSnipProcess.StartInfo.FileName = PathToLogSnip;
             logSnipProcess.StartInfo.Arguments = arguments;
             logSnipProcess.Start();

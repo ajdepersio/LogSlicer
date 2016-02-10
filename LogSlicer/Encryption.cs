@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LogSlicer
 {
@@ -28,9 +24,7 @@ namespace LogSlicer
             byte[] keyArray;
             byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
 
-            System.Configuration.AppSettingsReader settingsReader = new AppSettingsReader();
-
-            string key = "c9ZSKDytDwWnj37";
+            const string key = "c9ZSKDytDwWnj37";
             
             //If hashing use get hashcode regards to your key
             if (useHashing)
@@ -79,9 +73,7 @@ namespace LogSlicer
 
             byte[] toEncryptArray = Convert.FromBase64String(cipherString);
 
-            System.Configuration.AppSettingsReader settingsReader = new AppSettingsReader();
-
-            string key = "c9ZSKDytDwWnj37";
+            const string key = "c9ZSKDytDwWnj37";
 
             if (useHashing)
             {

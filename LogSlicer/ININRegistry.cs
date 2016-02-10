@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Win32;
-using System.Windows.Forms;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace LogSlicer
 {
-    static class ININRegistry
+    static class IninRegistry
     {
         private static readonly string ININRegPath = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Interactive Intelligence";
 
         /// <summary>
         /// Exports the ININ Registry branch and adds it to the list of output files
         /// </summary>
-        public static void ExportININRegistry()
+        public static void ExportIninRegistry()
         {    
             string exportPath = Slicer.OutputFolder + "\\registry.reg";
             ExportKey(ININRegPath, exportPath);
@@ -25,12 +19,12 @@ namespace LogSlicer
         /// <summary>
         /// Exports registry key to selected file location
         /// </summary>
-        /// <param name="RegKey">Key to export</param>
-        /// <param name="SavePath">File to save export to</param>
-        private static void ExportKey(string RegKey, string SavePath)
+        /// <param name="regKey">Key to export</param>
+        /// <param name="savePath">File to save export to</param>
+        private static void ExportKey(string regKey, string savePath)
         {
-            string path = "\"" + SavePath + "\"";
-            string key = "\"" + RegKey + "\"";
+            string path = "\"" + savePath + "\"";
+            string key = "\"" + regKey + "\"";
 
             Process proc = new Process();
             try

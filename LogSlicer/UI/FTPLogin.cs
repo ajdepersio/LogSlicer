@@ -7,7 +7,7 @@ namespace LogSlicer
     /// <summary>
     /// Form to provide login information for ftp.inin.com
     /// </summary>
-    public partial class FTPLogin : Form
+    public partial class FtpLogin : Form
     {
         private static string _username = Config.Load("FTPUserName", true);
         private static string _password = Config.Load("FTPPassword", true);
@@ -44,7 +44,7 @@ namespace LogSlicer
         }
         
 
-        public FTPLogin()
+        public FtpLogin()
         {
             InitializeComponent();
 
@@ -72,7 +72,7 @@ namespace LogSlicer
 
             foreach (string file in Slicer.OutputFilePaths)
             {
-                e.Result = Packer.SendToSupport(FTPLogin.Username, FTPLogin.Password, Packer.Ticket, file, worker);
+                e.Result = Packer.SendToSupport(FtpLogin.Username, FtpLogin.Password, Packer.Ticket, file, worker);
             }
         }
 
@@ -98,7 +98,7 @@ namespace LogSlicer
             {
                 if (saveCredsCheckBox.Checked)
                 {
-                    saveCredentials();
+                    SaveCredentials();
                 }
                 this.Close();
                 return;
@@ -136,7 +136,7 @@ namespace LogSlicer
         /// <summary>
         /// Save the FTP credentials to the app.config file encrypted
         /// </summary>
-        private void saveCredentials()
+        private void SaveCredentials()
         {
             Config.Save("FTPUserName", userTextBox.Text, true);
             Config.Save("FTPPassword", passwordTextBox.Text, true);

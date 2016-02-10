@@ -1,4 +1,4 @@
-﻿namespace LogSlicer
+﻿namespace LogSlicer.UI
 {
     partial class Main
     {
