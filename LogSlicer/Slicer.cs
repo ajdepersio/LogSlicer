@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -148,19 +149,18 @@ namespace LogSlicer
         /// <returns>File path to logsnip.exe</returns>
         private static string FindLogSnipPath()
         {
-            //TODO Update this so logsnip version is considered.  Also so it's not as janky...
+            //TODO Update this so logsnip version is considered.
 
-            List<string> searchPaths = new List<string> 
-            { 
-                "D:\\i3\\ic\\ININ Trace Initialization\\logsnip.exe",
-                "D:\\ic\\ININ Trace Initialization\\logsnip.exe",
-                "E:\\i3\\ic\\ININ Trace Initialization\\logsnip.exe",
-                "E:\\ic\\ININ Trace Initialization\\logsnip.exe",
-                "C:\\i3\\ic\\ININ Trace Initialization\\logsnip.exe",
-                "C:\\ic\\ININ Trace Initialization\\logsnip.exe",
-                "C:\\Program Files (x86)\\Interactive Intelligence\\ININ Trace Initialization\\logsnip.exe",
-                "C:\\Program Files\\Interactive Intelligence\\ININ Trace Initialization\\logsnip.exe"
-            };
+            List<DriveInfo> drives = DriveInfo.GetDrives().Where(x => x.DriveType == DriveType.Fixed).ToList();
+            List<string> searchPaths = new List<string>();
+
+            foreach (DriveInfo drive in drives)
+            {
+                searchPaths.Add(drive.Name + "i3\\ic\\ININ Trace Initialization\\logsnip.exe");
+                searchPaths.Add(drive.Name + "ic\\ININ Trace Initialization\\logsnip.exe");
+                searchPaths.Add(drive.Name + "Program Files\\Interactive Intelligence\\ININ Trace Initialization\\logsnip.exe");
+                searchPaths.Add(drive.Name + "Program Files (x86)\\Interactive Intelligence\\ININ Trace Initialization\\logsnip.exe");
+            }
             
             foreach (string path in searchPaths)
             {
