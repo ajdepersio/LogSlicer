@@ -13,72 +13,26 @@ namespace LogSlicer
     /// </summary>
     static class Slicer
     {
-        private static string _pathToLogSnip;
-        private static string _outputFolder;
-        private static List<string> _outputFilePaths = new List<string>();
-        private static List<Process> _logSnipProcesses = new List<Process>();
-
         /// <summary>
         /// File path to logsnip.exe
         /// </summary>
-        public static string PathToLogSnip
-        {
-            get
-            {
-                return _pathToLogSnip;
-            }
-            private set
-            {
-                _pathToLogSnip = value;
-            }
-        }
+        public static string LogSnipPath { get; private set; }
 
         /// <summary>
         /// Folder to output files to
         /// </summary>
-        public static string OutputFolder
-        {
-            get
-            {
-                return _outputFolder;
-            }
-            set
-            {
-                //do some stuff to ensure we can write to folder
-                _outputFolder = value;
-            }
-        }
+        public static string OutputFolder { get; set; }
 
         /// <summary>
         /// List of all files that have been outputted from the program (log snips and otherwise)
         /// </summary>
-        public static List<string> OutputFilePaths
-        {
-            get
-            {
-                return _outputFilePaths;
-            }
-            private set
-            {
-                _outputFilePaths = value;
-            }
-        }
+        public static List<string> OutputFilePaths { get; private set; } = new List<string>();
 
         /// <summary>
         /// Instances of logsnip.exe
         /// </summary>
-        public static List<Process> LogSnipProcesses
-        {
-            get
-            {
-                return _logSnipProcesses;
-            }
-            private set
-            {
-                _logSnipProcesses = value;
-            }
-        }
-
+        public static List<Process> LogSnipProcesses { get; private set; } = new List<Process>();
+        
         /// <summary>
         /// Try to find logsnip.exe either based on config, common locations, or manual specification
         /// </summary>
@@ -86,7 +40,7 @@ namespace LogSlicer
         {
             string logSnipPath = Config.Load("LogSnipPath");
 
-            PathToLogSnip = logSnipPath;
+            LogSnipPath = logSnipPath;
             if (logSnipPath == null || !(File.Exists(logSnipPath)))
             {
                 string foundPath = FindLogSnipPath();
@@ -96,7 +50,7 @@ namespace LogSlicer
                 }
                 else
                 {
-                    PathToLogSnip = SelectLogSnip();
+                    LogSnipPath = SelectLogSnip();
                 }
                 
             }
@@ -110,10 +64,12 @@ namespace LogSlicer
         {
             string logSnipPath = "";
             //.exe not found, so ask user to manually find it
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*";
-            dialog.InitialDirectory = "C:";
-            dialog.Title = "Select logsnip.exe";
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",
+                InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
+                Title = "Select logsnip.exe"
+            };
 
             switch (dialog.ShowDialog())
             {
@@ -161,15 +117,8 @@ namespace LogSlicer
                 searchPaths.Add(drive.Name + "Program Files\\Interactive Intelligence\\ININ Trace Initialization\\logsnip.exe");
                 searchPaths.Add(drive.Name + "Program Files (x86)\\Interactive Intelligence\\ININ Trace Initialization\\logsnip.exe");
             }
-            
-            foreach (string path in searchPaths)
-            {
-                if(File.Exists(path))
-                {
-                    return path;
-                }
-            }
-            return null;
+
+            return searchPaths.FirstOrDefault(path => File.Exists(path));
         }
 
         /// <summary>
@@ -178,7 +127,7 @@ namespace LogSlicer
         /// <param name="logSnipPath">Path to the executable</param>
         private static void SetLogSnipPath(string logSnipPath)
         {
-            PathToLogSnip = logSnipPath;
+            LogSnipPath = logSnipPath;
             Config.Save("LogSnipPath", logSnipPath);
         }
 
@@ -250,7 +199,7 @@ namespace LogSlicer
                     end.ToString("yyyy'-'MM'-'dd'@'HH':'mm':'ss.fff"));
 
             Process logSnipProcess = new Process();
-            logSnipProcess.StartInfo.FileName = PathToLogSnip;
+            logSnipProcess.StartInfo.FileName = LogSnipPath;
             logSnipProcess.StartInfo.Arguments = arguments;
             logSnipProcess.Start();
 
